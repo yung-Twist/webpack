@@ -1,5 +1,11 @@
-function add(a, b) {
-  return a + b;
-}
+// import '@babel/polyfill'
+const sum = (a, b)=>{return a + b}
 // eslint-disable-next-line
-console.log(add(2, 4));
+console.log(sum(2, 4));
+
+const promise = new Promise(resolve=>{
+  setTimeout(() => {
+      console.log(123)
+      resolve()
+  }, 1000);
+})
