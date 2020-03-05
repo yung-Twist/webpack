@@ -1,10 +1,11 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-	entry: './src/index.js', //入口文件
+	entry: './src/index.js', // 入口文件
 	output: {
-		filename: 'js/index.js', //输出文件名称
-		path: resolve(__dirname, 'dist') //文件输出路径
+		filename: 'js/index.js', // 输出文件名称
+		path: resolve(__dirname, 'dist') // 文件输出路径
 	},
 	module: {
 		rules: [
@@ -12,7 +13,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					'style-loader', //将样式放入html文件中
+					'style-loader', // 将样式放入html文件中
 					'css-loader'
 				]
 			},
@@ -21,14 +22,14 @@ module.exports = {
 				use: ['style-loader', 'css-loader', 'less-loader']
 			},
 			{
-				//下载url-loader和file-loader
+				// 下载url-loader和file-loader
 				test: /\.(jpg|png|gif|jpeg)$/,
-				loader: 'url-loader', //只有一个laoder时可以用loader代替use
+				loader: 'url-loader', // 只有一个laoder时可以用loader代替use
 				options: {
-					limit: 8 * 1024, //文件小于8K时将图片打包成base64
-					esModule: false, //关闭es6模块化解析
+					limit: 8 * 1024, // 文件小于8K时将图片打包成base64
+					esModule: false, // 关闭es6模块化解析
 					name: '[hash:12].[ext]',
-					outputPath: 'images' //文件输入路径（文件输出主路径下 dist ）
+					outputPath: 'images' // 文件输入路径（文件输出主路径下 dist ）
 				}
 			},
 			{
@@ -38,7 +39,7 @@ module.exports = {
 				loader: 'html-loader'
 			},
 			{
-				//处理其他资源
+				// 处理其他资源
 				// exclude编译其他资源的文件（字体图标）
 				exclude: /\.(html|css|less|js|jpg|png|gif|jpeg)$/,
 				loader: 'file-loader',
@@ -62,7 +63,11 @@ module.exports = {
 		contentBase: resolve(__dirname, 'dist'),
 		// 是否使用Gzip压缩
 		compress: true,
-		port: 8888,
-		open: false //是否自动打开浏览器
-	}
+		port: 8899,
+		// 开启HMR
+		hot: true,
+		open: false // 是否自动打开浏览器
+	},
+	// 代码调试插件
+	devtool: 'eval-source-map' // 开发环境建议使用eval-source-map，生产环境使用source-map有利于调试，隐藏代码可使用nosources-source-map(全部隐藏)或者hidden-source-map（只隐藏源代码）
 };
